@@ -16,27 +16,56 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <style type="text/css">
-    .card-title > span{
-      font-size: 13px;
-    }
-    .wrap{
-      margin: 0 auto;
-      width: 500px;
-    }
-    .form{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
-    .form > button{
-      margin: 0 auto;
-    }
-    .input-d{
-      width: 80%;
-    }
-  </style>
+
+  <script>
+    function q1(){
+      let login = $('#name').val();
+      let count = $('#count').val();
+      let address = $('#address').val();
+      var phone = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
+      let phone_num = $('#phone_num').val();
+
+      if (login == ''){
+        alert('이름을 입력하세요');
+      } 
+      else if (count == '--수량을 선택하세요--'){
+        alert('수량을 선택하세요');
+      }
+      else if (address == ''){
+        alert('주소를 입력하세요');
+      }
+      else if (!phone.test(phone_num)){
+        alert('핸드폰 번호를 올바르게 입력하세요')
+      }
+      else {
+       alert('주문완료');
+     }
+   }  
+ </script>
+
+ <style type="text/css">
+  .card-title > span{
+    font-size: 13px;
+  }
+  .wrap{
+    margin: 0 auto;
+    width: 500px;
+  }
+  .form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .form > button{
+    margin: 0 auto;
+  }
+  .input-d{
+    width: 80%;
+  }
+</style>
+
+
 </head>
 <body>
   <div class="wrap">
@@ -50,9 +79,9 @@
         <div class=" my-1 input-d">   
           <div class="input-group">
             <div class="input-group-prepend">
-              <div class="input-group-text">주문자 이름 </div>
+              <div  class="input-group-text">주문자 이름 </div>
             </div>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername" >
+            <input type="text" class="form-control" id="name">
           </div>
         </div>
         <div class=" my-1 input-d">
@@ -60,11 +89,11 @@
             <div class="input-group-prepend">
               <div class="input-group-text">수량</div>
             </div>
-            <select class="custom-select" id="inlineFormCustomSelectPref">
+            <select class="custom-select" id="count">
               <option selected>--수량을 선택하세요--</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
             </select>
           </div>
         </div>
@@ -73,7 +102,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">주소 </div>
             </div>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername" >
+            <input type="text" class="form-control" id="address" >
           </div>
         </div>
         <div class=" my-1 input-d">
@@ -81,10 +110,10 @@
             <div class="input-group-prepend">
               <div class="input-group-text">전화번호 </div>
             </div>
-            <input type="text" class="form-control" id="inlineFormInputGroupUsername" >
+            <input type="text" class="form-control" id="phone_num" placeholder="000-0000-0000" >
           </div>
         </div>
-        <button type="submit" class="btn btn-primary my-1 submit">주문하기</button>
+        <button type="submit" onclick="q1()" class="btn btn-primary my-1 submit">주문하기</button>
       </div>
     </div>
   </div>
