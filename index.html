@@ -17,15 +17,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-  <script>
+  <script> 
+    //버튼 클릭했을때
     function q1(){
-      let login = $('#name').val();
+      let name = $('#name').val();
       let count = $('#count').val();
       let address = $('#address').val();
       var phone = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
       let phone_num = $('#phone_num').val();
 
-      if (login == ''){
+      if (name == ''){
         alert('이름을 입력하세요');
       } 
       else if (count == '--수량을 선택하세요--'){
@@ -38,9 +39,55 @@
         alert('핸드폰 번호를 올바르게 입력하세요')
       }
       else {
-       alert('주문완료');
-     }
-   }  
+        alert('주문완료');
+
+        let temp ='<tr>\
+                    <td>'+name+'</td>\
+                    <td>'+count+'</td>\
+                    <td>'+address+'</td>\
+                    <td>'+phone_num+'</td>\
+                  </tr>'
+
+        $('#orderbox').append(temp) //temp에 추가하기 
+      }
+   }
+
+   // 시작할때 불러옴 
+  $(document).ready(function(){
+      listing();
+  });
+
+  function listing() {
+      $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/order",
+        data: {},
+        success: function(response){
+          let orders = response['orders']
+          console.log(orders)
+
+          $('#orderbox').empty()
+
+          for(let i = 0; i < orders.length; i++){
+            let name = orders[i]['name']
+            let address = orders[i]['address']
+            let count = orders[i]['count']
+            let phone_num = orders[i]['phone']
+
+            let temp ='<tr>\
+                        <td>'+name+'</td>\
+                        <td>'+count+'</td>\
+                        <td>'+address+'</td>\
+                        <td>'+phone_num+'</td>\
+                      </tr>'
+                       
+
+            $('#orderbox').append(temp)
+          }
+
+        }
+      })
+    }
  </script>
 
  <style type="text/css">
@@ -116,6 +163,42 @@
         <button type="submit" onclick="q1()" class="btn btn-primary my-1 submit">주문하기</button>
       </div>
     </div>
+    <table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">이름</th>
+      <th scope="col">수량</th>
+      <th scope="col">주소</th>
+      <th scope="col">전화번호</th>
+    </tr>
+  </thead>
+  <tbody id="orderbox">
+    <tr>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+  </tbody>
+</table>
   </div>
 </body>
 </html>
